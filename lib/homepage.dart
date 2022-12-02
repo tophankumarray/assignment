@@ -24,13 +24,16 @@ class _HomePageState extends State<HomePage> {
 //! Initialize variables
   List<dynamic>? catagotyList;
   List<CatagoryItemModel>? catagoryItemList = [];
-  String defaultItemImage = "images/dry.png";
+  String defaultItemImage = "https://www.justgotochef.com/uploads/1541847746-Nutty%20Gritties-Dry%20Fruits%20Blend-Front.jpg";
   String itemName = "-";
   double? itemPrice = 0.0;
   int itemIndex = 0;
 
   getData() async {
     catagotyList = await APIService().getCatagory();
+    await Future.delayed(Duration(microseconds: 300), () {
+      APIService().getCatagoryItem(catagotyList![0]);
+    });
     setState(() {});
   }
 
@@ -177,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                             ClipOval(
                               child: Container(
                                 // margin: EdgeInsets.symmetric(vertical: 100),
-                            
+
                                 child: defaultItemImage != ""
                                     ? Image.network(
                                         defaultItemImage,
@@ -185,8 +188,8 @@ class _HomePageState extends State<HomePage> {
                                         height: 150,
                                         fit: BoxFit.cover,
                                       )
-                                    : Image.asset(
-                                        "images/dry.png",
+                                    : Image.network(
+                                        defaultItemImage,
                                         width: 150,
                                         fit: BoxFit.cover,
                                         height: 150,
